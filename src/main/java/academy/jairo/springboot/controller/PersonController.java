@@ -20,6 +20,7 @@ public class PersonController {
     @GetMapping
     public List<Person> list() {
         log.info(dateUtil.formatLocalDate(LocalDateTime.now()));
+
         return List.of(new Person("John"), new Person("Mary"), new Person("Peter"));
     }
 
