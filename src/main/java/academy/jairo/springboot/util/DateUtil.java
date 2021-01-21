@@ -10,4 +10,8 @@ public class DateUtil {
     public String formatLocalDate(LocalDateTime localDateTime) {
         return DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mn").format(localDateTime);
     }
+
+    public double sum(double a, double b) {
+        return a + b;
+    }
 }
