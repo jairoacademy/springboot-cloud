@@ -1,7 +1,2 @@
-# Hi, adding readme file!
-# Observation
-- This is a simple observation to demo
-- Test if CODEOWNERS work!
-
-# Testing privilege
-- More one 
+# Project Description
+- This is a simple project, clean and modern String Boot Cloud Application. The idea is have a complete amazing application soluction using Spring Boot, Zuul, Eureka, Docker and Kubernetes.
