@@ -9,11 +9,8 @@ import academy.jairo.springboot.request.person.PersonPutRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service //i am a spring bean
@@ -24,26 +21,23 @@ public class PersonService {
 
     public List<Person> listAll(){
         return personRepository.findAll();
-    };
+    }
 
     public Page<Person> listAllWithPaging(Pageable pageable){
         return personRepository.findAll(pageable);
-    };
-
-    public List<Person> findByName(String name){
-        return personRepository.findByName(name);
-    };
+    }
 
     public Person findByIdOrThrowBadRequestException(long id){
         return personRepository.findById(id)
                 .orElseThrow(() -> new AppBadRequestException("Person not found"));
-    };
+    }
+
+    public List<Person> findByName(String name){
+        return personRepository.findByName(name);
+    }
 
     public Person save(PersonPostRequestBody personPostRequestBody) {
         Person person = PersonMapper.INSTANCE.toPerson(personPostRequestBody);
-        if (person.getName() == null) {
-            throw new AppBadRequestException("MapStruct not work " + person);
-        }
         return personRepository.save(person);
     }
 
