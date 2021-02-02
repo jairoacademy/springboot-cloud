@@ -3,11 +3,10 @@ package academy.jairo.springboot.integration;
 import academy.jairo.springboot.domain.Person;
 import academy.jairo.springboot.domain.PersonCreator;
 import academy.jairo.springboot.domain.PersonPostRequestBodyCreator;
-import academy.jairo.springboot.domain.PersonPutRequestBodyCreator;
 import academy.jairo.springboot.repository.PersonRepository;
 import academy.jairo.springboot.request.person.PersonPostRequestBody;
-import academy.jairo.springboot.request.person.PersonPutRequestBody;
 import academy.jairo.springboot.wrapper.PageableResponse;
+import lombok.extern.log4j.Log4j2;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,16 +24,17 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@Log4j2
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PersonControllerIT {
 
-    @Autowired
-    TestRestTemplate testRestTemplate;
-
     @LocalServerPort
     int port;
+
+    @Autowired
+    TestRestTemplate testRestTemplate;
 
     @Autowired
     PersonRepository personRepository;
@@ -97,6 +97,7 @@ public class PersonControllerIT {
         Assertions.assertThat(person.getId()).isEqualTo(expectedId);
     }
 
+
     @Test
     @DisplayName("findByName and return Person when success")
     void findByNameWhenSuccess() {
@@ -135,18 +136,18 @@ public class PersonControllerIT {
         Assertions.assertThat(personResponseEntity.getBody()).isNotNull();
 
         Assertions.assertThat(personResponseEntity.getBody().getId()).isNotNull();
-    }
+   }
 
-    @Test
-    @DisplayName("Replace a Person and return Person when success")
-    void replaceWhenSuccess() {
+   @Test
+   @DisplayName("Replace a Person and return Person when success")
+   void replaceWhenSuccess() {
         Person savedPerson = personRepository.save(PersonCreator.createValidUpdated());
-
-        PersonPutRequestBody personPutRequestBody = PersonPutRequestBodyCreator.create();
-        personPutRequestBody.setName("New Name");
+        savedPerson.setName("New Name");
 
         ResponseEntity<Void> personResponseEntity = testRestTemplate.exchange("/persons",
-                HttpMethod.PUT, new HttpEntity<>(personPutRequestBody), Void.class);
+                HttpMethod.PUT,
+                new HttpEntity<>(savedPerson),
+                Void.class);
 
         Assertions.assertThat(personResponseEntity).isNotNull();
 
@@ -159,7 +160,10 @@ public class PersonControllerIT {
         Person savedPerson = personRepository.save(PersonCreator.create());
 
         ResponseEntity<Void> personResponseEntity = testRestTemplate.exchange("/persons/{id}",
-                HttpMethod.DELETE, null, Void.class, savedPerson.getId());
+                HttpMethod.DELETE,
+                null,
+                Void.class,
+                savedPerson.getId());
 
         Assertions.assertThat(personResponseEntity).isNotNull();
 
