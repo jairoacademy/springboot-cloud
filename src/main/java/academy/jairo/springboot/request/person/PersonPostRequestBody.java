@@ -16,6 +16,6 @@ public class PersonPostRequestBody {
     @NotEmpty(message = "The Person name cannot be empty")
     private String name;
 
-    /*@URL
-    private String url;*/
+    @URL
+    private String url;
 }
