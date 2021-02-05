@@ -108,7 +108,7 @@ class PersonControllerTest {
     void findByNameWhenSuccess() {
         String expectedName = PersonCreator.createValid().getName();
 
-        List<Person> listPerson = personController.findByName("Kkk").getBody();
+        List<Person> listPerson = personController.findByName("Samba").getBody();
 
         Assertions.assertThat(listPerson)
                 .isNotNull()

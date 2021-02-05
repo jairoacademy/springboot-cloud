@@ -10,6 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +25,7 @@ public class PersonController {
 
     private final PersonService personService;
 
+    @PreAuthorize(("hasRole('ADMIN')"))
     @PostMapping
     public ResponseEntity<Person> save(
             @RequestBody PersonPostRequestBody personPostRequestBody) {
@@ -49,7 +53,7 @@ public class PersonController {
         return new ResponseEntity<>(personService.listAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/pg")
+    @GetMapping("/admin/pg")
     public ResponseEntity<Page<Person>> findAllWithPaging(Pageable pageable) {
         log.info("Listing Person");
         return ResponseEntity.ok(personService.listAllWithPaging(pageable));
@@ -58,6 +62,13 @@ public class PersonController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<Person> findById(@PathVariable long id) {
         log.info("Find a Person");
+        return ResponseEntity.ok(personService.findByIdOrThrowBadRequestException(id));
+    }
+
+    @GetMapping(path = "/find-by-auth/{id}")
+    public ResponseEntity<Person> findByIdWithAuthentication(
+            @PathVariable long id, @AuthenticationPrincipal UserDetails userDetails) {
+        log.info("Find a Person with authentication -> {}", userDetails );
         return ResponseEntity.ok(personService.findByIdOrThrowBadRequestException(id));
     }
 
