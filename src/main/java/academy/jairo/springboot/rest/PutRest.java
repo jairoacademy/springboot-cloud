@@ -18,7 +18,7 @@ public class PutRest {
                 HttpMethod.POST,
                 new HttpEntity<>(createPerson, createJsonHeader()),
                 Person.class);
-        log.info("Kkk - Saved Person {}", savedPerson);
+        log.info("Saved Person {}", savedPerson);
 
         Person putPerson = savedPerson.getBody();
         putPerson.setName("Samurai MyEggs II");
@@ -28,7 +28,7 @@ public class PutRest {
                 new HttpEntity<>(putPerson, createJsonHeader()),
                 Void.class);
 
-        log.info("Kkk - updatedPerson {}", updatedPerson);
+        log.info("updatedPerson {}", updatedPerson);
 
         ResponseEntity<Void> deletePerson = new RestTemplate().exchange(url + "{id}",
                 HttpMethod.DELETE,
@@ -36,7 +36,7 @@ public class PutRest {
                 Void.class,
                 putPerson.getId());
 
-        log.info("Kkk - deletePerson {}", deletePerson);
+        log.info("deletePerson {}", deletePerson);
 
     }
 
