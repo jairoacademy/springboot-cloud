@@ -18,7 +18,7 @@
     <properties>
         <java.version>11</java.version>
         <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
-        <springdoc-openapi-security.version>1.5.3</springdoc-openapi-security.version>
+        <springdoc-openapi-ui.version>1.5.3</springdoc-openapi-ui.version>
     </properties>
 
     <dependencies>
@@ -26,17 +26,17 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>${springdoc-openapi-security.version}</version>
+            <version>${springdoc-openapi-ui.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-data-rest</artifactId>
-            <version>${springdoc-openapi-security.version}</version>
+            <version>${springdoc-openapi-ui.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-security</artifactId>
-            <version>${springdoc-openapi-security.version}</version>
+            <version>${springdoc-openapi-ui.version}</version>
         </dependency>
 
 
