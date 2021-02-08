@@ -1,5 +1,6 @@
 package academy.jairo.springboot.request.person;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class PersonPostRequestBody {
     @NotEmpty(message = "The Person name cannot be empty")
+    @Schema(description = "Hi, this a name!", example = "Gabriel Angel")
     private String name;
 
     @URL
