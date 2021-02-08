@@ -4,8 +4,13 @@ import academy.jairo.springboot.domain.Person;
 import academy.jairo.springboot.request.person.PersonPostRequestBody;
 import academy.jairo.springboot.request.person.PersonPutRequestBody;
 import academy.jairo.springboot.service.PersonService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -40,6 +45,10 @@ public class PersonController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Return a success operation"),
+            @ApiResponse(responseCode = "400", description = "When a Person does not exist")
+    })
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
         log.info("Delete a Person");
@@ -47,24 +56,38 @@ public class PersonController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @Operation(
+            summary = "List all Person",
+            tags = {"list-person"})
     @GetMapping
     public ResponseEntity<List<Person>> findAll() {
         log.info("Listing Person");
         return new ResponseEntity<>(personService.listAll(), HttpStatus.OK);
     }
 
+    @Operation(
+            summary = "List all Person paginated",
+            description = "The default size is 20, use the parameter size do change the value",
+            tags = {"list-person"})
     @GetMapping("/admin/pg")
-    public ResponseEntity<Page<Person>> findAllWithPaging(Pageable pageable) {
+    public ResponseEntity<Page<Person>> findAllWithPaging(
+            @ParameterObject Pageable pageable) {
         log.info("Listing Person");
         return ResponseEntity.ok(personService.listAllWithPaging(pageable));
     }
 
+    @Operation(
+            summary = "Get a Person by ID",
+            tags = {"get-person"})
     @GetMapping(path = "/{id}")
     public ResponseEntity<Person> findById(@PathVariable long id) {
         log.info("Find a Person");
         return ResponseEntity.ok(personService.findByIdOrThrowBadRequestException(id));
     }
 
+    @Operation(
+            summary = "Get a Person by authentication",
+            tags = {"get-person"})
     @GetMapping(path = "/find-by-auth/{id}")
     public ResponseEntity<Person> findByIdWithAuthentication(
             @PathVariable long id, @AuthenticationPrincipal UserDetails userDetails) {
@@ -72,12 +95,18 @@ public class PersonController {
         return ResponseEntity.ok(personService.findByIdOrThrowBadRequestException(id));
     }
 
+    @Operation(
+            summary = "Lit Person by name",
+            tags = {"list-person"})
     @GetMapping("/find/{name}")
     public ResponseEntity<List<Person>> findByName(@PathVariable String name) {
         log.info("Listing Person by name");
         return ResponseEntity.ok(personService.findByName(name));
     }
 
+    @Operation(
+            summary = "Lit Person by param name",
+            tags = {"list-person"})
     @GetMapping("/find")
     public ResponseEntity<List<Person>> findByNameParam(@RequestParam String name) {
         log.info("Listing Person by name");
