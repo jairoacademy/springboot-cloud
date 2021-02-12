@@ -1,4 +1,19 @@
-version: '3.1'
+# mvn jib:dockerBuild
+
+#Now this app is at Dockerhub
+# mvn jib:build
+
+# docker image rmi -f <image_name>
+# version: 2.x -
+# version: 3.x - apropriado pra ser usado com docker swarm, alternativa ao kubenetes
+
+version: '2.4'
+
+x-database-variables: &database-variables
+  SPRING_DATASOURCE_URL: jdbc:mysql://springboot-cloud-mysql:3306/mydb?useSSl=false&createDatabaseIfNotExist=true
+  SPRING_DATASOURCE_USERNAME: root
+  SPRING_DATASOURCE_PASSWORD: root
+
 services:
   db:
     image: mysql
@@ -9,3 +24,43 @@ services:
       - "3306:3306"
     volumes:
       - ../mysql-db:/var/lib/mysql
+    mem_limit: 512m
+    networks:
+      - spring-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: springboot-cloud-grafana
+    ports:
+      - "3000:3000"
+    mem_limit: 512m
+    networks:
+      - spring-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: springboot-cloud-prometheus
+    volumes:
+      - "./src/main/resources/prometheus.yml:/etc/prometheus/prometheus.yml"
+    command: "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"
+    mem_limit: 128m
+    networks:
+      - spring-network
+
+  springboot-cloud:
+    #image: registry.hub.docker.com/jairosoares/springboot-cloud:0.0.1-SNAPSHOT
+    image: jairosoares/springboot-cloud:0.0.3-SNAPSHOT
+    container_name: springboot-cloud-app
+    ports:
+      - "8080:8080"
+    environment:
+      <<: *database-variables
+    mem_limit: 512m
+    networks:
+      - spring-network
+
+networks:
+  spring-network:
+    driver: bridge

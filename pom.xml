@@ -13,15 +13,28 @@
 
     <groupId>academy.jairo</groupId>
     <artifactId>springboot-cloud</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
 
     <properties>
         <java.version>11</java.version>
         <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
         <springdoc-openapi-ui.version>1.5.3</springdoc-openapi-ui.version>
+        <jib-maven-plugin.version>2.7.1</jib-maven-plugin.version>
+        <jib-docker-image>gcr.io/distroless/java:11</jib-docker-image>
+        <docker.repository.url>registry.hub.docker.com/jairosoares</docker.repository.url>
+        <docker.repository.project>springboot-cloud</docker.repository.project>
+        <docker.image.name>${docker.repository.url}/${docker.repository.project}</docker.image.name>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -129,6 +142,26 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib-maven-plugin.version}</version>
+                <configuration>
+                    <from>
+                        <image>${jib-docker-image}</image>
+                    </from>
+                    <to>
+                        <image>${docker.image.name}</image>
+                        <tags>
+                            <tag>${project.version}</tag>
+                        </tags>
+                    </to>
+                    <container>
+                        <mainClass>academy.jairo.springboot.ApplicationStart</mainClass>
+                    </container>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
