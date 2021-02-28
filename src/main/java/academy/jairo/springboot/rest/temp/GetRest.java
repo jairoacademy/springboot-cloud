@@ -1,10 +1,10 @@
-package academy.jairo.springboot.rest;
+package academy.jairo.springboot.rest.temp;
 
 import academy.jairo.springboot.domain.Person;
+import academy.jairo.springboot.rest.body.ZipBody;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,7 +15,17 @@ public class GetRest {
     public static final String url = "http://localhost:8080/persons/";
 
     public static void main(String[] args) {
+        loadZipCodeService();
+    }
 
+    //Use Feign, to makes writing java http clients easier
+    private static void loadZipCodeService() {
+        String uri = "http://viacep.com.br/ws/38400386/json/";
+        ZipBody entity = new RestTemplate().getForObject(uri  , ZipBody.class);
+        log.info(entity);
+    }
+
+    private static void get1() {
         ResponseEntity<Person> entity = new RestTemplate().getForEntity(url + "2" , Person.class);
         log.info(entity);
 
@@ -29,8 +39,8 @@ public class GetRest {
                         HttpMethod.GET,
                         null,
                         new ParameterizedTypeReference<List<Person>>() {
-                });
+                        });
         log.info(exchange.getBody());
-
     }
+
 }

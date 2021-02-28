@@ -1,4 +1,4 @@
-package academy.jairo.springboot.rest;
+package academy.jairo.springboot.rest.temp;
 
 import academy.jairo.springboot.domain.Person;
 import lombok.extern.log4j.Log4j2;
