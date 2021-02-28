@@ -1,13 +1,8 @@
-package academy.jairo.springboot.rest;
+package academy.jairo.springboot.rest.temp;
 
 import academy.jairo.springboot.domain.Person;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 @Log4j2
 public class PostRest {
