@@ -20,7 +20,7 @@ public class ZipController {
 
     @GetMapping("/{zipCode}")
     ResponseEntity<ZipBody> findAddressByZipCode(@PathVariable("zipCode") String zipCode) {
-        return ResponseEntity.ok(zipClient.getAddressByZipCodeJustSimple(zipCode));
+        return ResponseEntity.ok(zipClient.getAddressByZipCodeJustVerbose(zipCode));
     }
 
 }
