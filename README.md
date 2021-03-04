@@ -4,7 +4,6 @@
 
 <img alt="Docker Image Version (latest by date)" src="https://img.shields.io/docker/v/jairosoares/springboot-cloud">
 <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/jairosoares/springboot-cloud">
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
 
 ### Description
 - This is a simple project, clean and modern String Boot Cloud Application. The idea is have a complete amazing application soluction using Spring Boot, Zuul, Eureka, Docker and Kubernetes.
@@ -26,6 +25,7 @@ Project is created with:
 * Prometheus: latest
 * Grafana: latest
 * Portainer: latest
+* Jaeger: 1.3.2
 
 ### Clone 
 1. Open terminal
@@ -46,6 +46,7 @@ Amazing things that can be accessed
 - [API REST with Swagger](http://localhost:8080/swagger-ui.html)
 - [Prometheus](http://localhost:9090)
 - [Grafana](http://localhost:3000)
+- [Jaeger](http://localhost:16686/search)
 
 # 🚀 Tips 
 ### Improve your README!
