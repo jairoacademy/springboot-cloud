@@ -30,3 +30,9 @@ info:
   app: Spring Boot Cloud Lab
   website: https://github.com/jairoacademy
   github: https://github.com/jairoacademy/springboot-cloud
+
+opentracing:
+  jaeger:
+    udp-sender:
+      host: localhost
+      port: 5775

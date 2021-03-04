@@ -49,6 +49,13 @@ services:
     networks:
       - spring-network
 
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: springboot-cloud-jaeger
+    ports:
+    - 5775:5775/udp
+    - 16686:16686
+
   springboot-cloud:
     #image: registry.hub.docker.com/jairosoares/springboot-cloud:0.0.1-SNAPSHOT
     image: jairosoares/springboot-cloud:0.0.3-SNAPSHOT
