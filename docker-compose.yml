@@ -1,4 +1,3 @@
-# mvn jib:dockerBuild
 
 #Now this app is at Dockerhub
 # mvn jib:build
@@ -23,7 +22,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ../mysql-db:/var/lib/mysql
+      #- ../mysql-db:/var/lib/mysql
+      - ~/db/mysql-db:/var/lib/mysql
     mem_limit: 512m
     networks:
       - spring-network
