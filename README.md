@@ -26,6 +26,7 @@ Project is created with:
 * Grafana: latest
 * Portainer: latest
 * Jaeger: 1.3.2
+* Redis: alpine
 
 ### Clone 
 1. Open terminal

@@ -22,11 +22,19 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      #- ../mysql-db:/var/lib/mysql
-      - ~/db/mysql-db:/var/lib/mysql
+      - ~/volumes/mysql-db:/var/lib/mysql
     mem_limit: 512m
     networks:
       - spring-network
+
+  redis:
+    image: redis:alpine
+    container_name: springboot-cloud-redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    #  - ~/volumes/redis-data:/data
 
   grafana:
     image: grafana/grafana:latest
@@ -56,17 +64,16 @@ services:
     - 5775:5775/udp
     - 16686:16686
 
-  springboot-cloud:
-    #image: registry.hub.docker.com/jairosoares/springboot-cloud:0.0.1-SNAPSHOT
-    image: jairosoares/springboot-cloud:0.0.3-SNAPSHOT
-    container_name: springboot-cloud-app
-    ports:
-      - "8080:8080"
-    environment:
-      <<: *database-variables
-    mem_limit: 512m
-    networks:
-      - spring-network
+#  springboot-cloud:
+#    image: jairosoares/springboot-cloud:0.0.3-SNAPSHOT
+#    container_name: springboot-cloud-app
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      <<: *database-variables
+#    mem_limit: 512m
+#    networks:
+#      - spring-network
 
 networks:
   spring-network:

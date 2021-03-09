@@ -7,6 +7,9 @@ import academy.jairo.springboot.repository.PersonRepository;
 import academy.jairo.springboot.request.person.PersonPostRequestBody;
 import academy.jairo.springboot.request.person.PersonPutRequestBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,7 @@ public class PersonService {
 
     private final PersonRepository personRepository;
 
+    @Cacheable(cacheNames = Person.CACHE_NAME, key="#root.method.name")
     public List<Person> listAll(){
         return personRepository.findAll();
     }
@@ -27,6 +31,7 @@ public class PersonService {
         return personRepository.findAll(pageable);
     }
 
+    @Cacheable(cacheNames = "Person", key="#id")
     public Person findByIdOrThrowBadRequestException(long id){
         return personRepository.findById(id)
                 .orElseThrow(() -> new AppBadRequestException("Person not found"));
@@ -36,6 +41,7 @@ public class PersonService {
         return personRepository.findByName(name);
     }
 
+    @CacheEvict(cacheNames = "Person", allEntries = true)
     public Person save(PersonPostRequestBody personPostRequestBody) {
         Person person = PersonMapper.INSTANCE.toPerson(personPostRequestBody);
         return personRepository.save(person);
@@ -45,8 +51,10 @@ public class PersonService {
         personRepository.delete(findByIdOrThrowBadRequestException(id));
     }
 
+    @CachePut(cacheNames = Person.CACHE_NAME, key="#id")
     public void replace(PersonPutRequestBody personPutRequestBody) {
         findByIdOrThrowBadRequestException(personPutRequestBody.getId());
         personRepository.save(PersonMapper.INSTANCE.toPerson(personPutRequestBody));
     }
+
 }
