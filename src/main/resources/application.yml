@@ -1,11 +1,16 @@
 server:
   error:
     include-stacktrace: never
+  port: 8080
 
 spring:
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
   application:
     name: springboot-cloud
-
   datasource:
     url: jdbc:mysql://localhost:3306/mydb?useSSl=false&createDatabaseIfNotExist=true
     username: root
