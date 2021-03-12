@@ -20,23 +20,24 @@ public class PutRest {
                 Person.class);
         log.info("Saved Person {}", savedPerson);
 
-        Person putPerson = savedPerson.getBody();
-        putPerson.setName("Samurai MyEggs II");
+        if (savedPerson.getBody() != null) {
+            Person putPerson = savedPerson.getBody();
+            putPerson.setName("Samurai MyEggs II");
+            ResponseEntity<Void> updatedPerson = new RestTemplate().exchange(url,
+                    HttpMethod.PUT,
+                    new HttpEntity<>(putPerson, createJsonHeader()),
+                    Void.class);
 
-        ResponseEntity<Void> updatedPerson = new RestTemplate().exchange(url,
-                HttpMethod.PUT,
-                new HttpEntity<>(putPerson, createJsonHeader()),
-                Void.class);
+            log.info("updatedPerson {}", updatedPerson);
 
-        log.info("updatedPerson {}", updatedPerson);
+            ResponseEntity<Void> deletePerson = new RestTemplate().exchange(url + "{id}",
+                    HttpMethod.DELETE,
+                    null,
+                    Void.class,
+                    putPerson.getId());
 
-        ResponseEntity<Void> deletePerson = new RestTemplate().exchange(url + "{id}",
-                HttpMethod.DELETE,
-                null,
-                Void.class,
-                putPerson.getId());
-
-        log.info("deletePerson {}", deletePerson);
+            log.info("deletePerson {}", deletePerson);
+        }
 
     }
 

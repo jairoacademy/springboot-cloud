@@ -1,12 +1,12 @@
 <p align="center">
-  <h2>Java Spring Boot Cloud Application</h2>
+    <b>Java Spring Boot Cloud Application</b><br>
 </p>
 
 <img alt="Docker Image Version (latest by date)" src="https://img.shields.io/docker/v/jairosoares/springboot-cloud">
 <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/jairosoares/springboot-cloud">
 
 ### Description
-- This is a simple project, clean and modern String Boot Cloud Application. The idea is have a complete amazing application soluction using Spring Boot, Zuul, Eureka, Docker and Kubernetes.
+- This is a simple project, clean and modern String Boot Cloud Application. The idea is to have a complete amazing application soluction using Spring Boot, Zuul, Eureka, Docker and Kubernetes.
 
 ### Prerequisite to build e install 
 - [Java 11](https://adoptopenjdk.net/index.html)

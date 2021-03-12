@@ -63,7 +63,7 @@ class PersonRepositoryTest {
 
         Optional<Person> optionalPerson = this.personRepository.findById(savedPerson.getId());
 
-        Assertions.assertThat(optionalPerson.isEmpty());
+        Assertions.assertThat(optionalPerson.isEmpty()).isTrue();
     }
 
     @Test
@@ -81,7 +81,6 @@ class PersonRepositoryTest {
                 .isNotEmpty()
         ;
 
-        Assertions.assertThat(listPerson);
     }
 
     @Test

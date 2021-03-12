@@ -8,11 +8,6 @@
 
 version: '2.4'
 
-x-database-variables: &database-variables
-  SPRING_DATASOURCE_URL: jdbc:mysql://springboot-cloud-mysql:3306/mydb?useSSl=false&createDatabaseIfNotExist=true
-  SPRING_DATASOURCE_USERNAME: root
-  SPRING_DATASOURCE_PASSWORD: root
-
 services:
   db:
     image: mysql
