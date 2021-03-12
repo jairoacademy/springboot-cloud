@@ -42,16 +42,4 @@ public class AppWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapte
                 .passwordEncoder(passwordEncoder);
     }
 
-    private void initMemoryAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth.inMemoryAuthentication()
-                .withUser("john")
-                .password(passwordEncoder.encode("123"))
-                .roles("USER", "ADMIN")
-                .and()
-                .withUser("mary")
-                .password(passwordEncoder.encode("456"))
-                .roles("USER");
-    }
-
 }

@@ -8,12 +8,6 @@ public class PersonCreator {
                 .build();
     }
 
-    public static Person create(String name) {
-        return Person.builder()
-                .name(name)
-                .build();
-    }
-
     public static Person createValid() {
         return Person.builder()
                 .name("John Power")

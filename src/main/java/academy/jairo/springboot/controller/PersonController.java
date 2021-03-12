@@ -5,7 +5,6 @@ import academy.jairo.springboot.request.person.PersonPostRequestBody;
 import academy.jairo.springboot.request.person.PersonPutRequestBody;
 import academy.jairo.springboot.service.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;

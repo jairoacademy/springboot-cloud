@@ -1,6 +1,5 @@
 package academy.jairo.springboot.domain;
 
-import academy.jairo.springboot.request.person.PersonPostRequestBody;
 import academy.jairo.springboot.request.person.PersonPutRequestBody;
 
 public class PersonPutRequestBodyCreator {

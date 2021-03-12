@@ -20,12 +20,13 @@ public class GetRest {
 
     //Use Feign, to makes writing java http clients easier
     private static void loadZipCodeService() {
+        loading();
         String uri = "http://viacep.com.br/ws/38400386/json/";
         ZipBody entity = new RestTemplate().getForObject(uri  , ZipBody.class);
         log.info(entity);
     }
 
-    private static void get1() {
+    private static void loading() {
         ResponseEntity<Person> entity = new RestTemplate().getForEntity(url + "2" , Person.class);
         log.info(entity);
 
@@ -38,7 +39,7 @@ public class GetRest {
                 .exchange(url,
                         HttpMethod.GET,
                         null,
-                        new ParameterizedTypeReference<List<Person>>() {
+                        new ParameterizedTypeReference<>() {
                         });
         log.info(exchange.getBody());
     }
